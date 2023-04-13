@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditya172003/AgroGuruBackend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aditya172003/AgroGuruBackend/issues"
+  },
+  "homepage": "https://github.com/aditya172003/AgroGuruBackend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22"
+  }
+}
