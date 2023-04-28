@@ -10,10 +10,11 @@ const jwt      = require('jsonwebtoken')
 
 exports.userResister= async (req,res) =>{
 
-     const {name,phone,email,password} = req.body;
-   console.log(req.body)
+     const {name,phone,email,password} = req.body.data;
+     
+   
 
-    if(!name||!phone||!email||!password)
+    if(!name||!phone||!email||!password)    
     {
        return res.status(400).send("enter the data first ");
     }
@@ -55,9 +56,10 @@ exports.userResister= async (req,res) =>{
 
 exports.userLogin = async (req,res) =>{
 
-    const {email,password} = req.body;
+    const {email,password} = req.body.data;
 
-    
+    console.log(req.body
+        )
 
     if(!email||!password)
     {

@@ -15,6 +15,10 @@ const Port = process.env.PORT;
 
 // importing routes
 const userRouter  = require("./Routes/UserRutes/MainUserRoutes/MainUser");
+const nurseryRouter = require("./Routes/UserRutes/NurseryRoutes/NurseryRouters");
+
+
+
 
 app.get("/",(req,res)=>{
     res.send("from express server ")
@@ -23,7 +27,7 @@ app.get("/",(req,res)=>{
 
 
 app.use("/user",userRouter);
-
+app.use("/nursery",nurseryRouter);
 
 app.listen( Port , ()=>{
     console.log("server is running on port number ",Port)

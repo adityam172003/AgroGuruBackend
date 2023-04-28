@@ -8,7 +8,7 @@ const {
     getUser
 } = require('../../../Controllers/userController/UserLoginRegister');
 const userRouter= express();
-
+ 
 
 
 userRouter.post('/register',userResister);
