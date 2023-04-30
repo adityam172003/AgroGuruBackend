@@ -1,6 +1,7 @@
 
+const { findOneAndUpdate } = require('../../Schema/UserSchema/CommonSchema/Userschema');
 const Nursery =require('../../Schema/UserSchema/NurserySchema/NurserySchema');
-
+const uploadMiddleware = require("../../Middleware/AdminMiddleware/MulterMiddleware")
 
 exports.addNursery = async(req,res)=>{
 
@@ -56,7 +57,7 @@ exports.getNursery = async (req,res)=>{
                                               
     // ).then((inja)=>{
     //     res.send(inja)
-    // });    
+    // });     
 
   var lng = parseFloat(req.query.lng);
   var lat = parseFloat(req.query.lat);
@@ -112,3 +113,79 @@ exports.getNursery = async (req,res)=>{
 
 }            
            
+
+
+exports.removeNursery = async (req,res)=>{
+
+  const userId = req.rootuser._id;
+  const obj = await Nursery.findOne({userId})
+
+   await Nursery.findByIdAndDelete({_id:obj._id})
+   .then((del)=>{
+
+      res.status(200).send("Nursery deleted");
+
+   })
+   .catch((err)=>{
+    console.log(err);
+    res.status(500).send("Internal server error");
+   })
+
+}
+
+exports.updataNursery = async(req,res)=>{
+
+      const userId = req.rootuser._id;
+
+
+      const obj = await Nursery.findOne({userId});
+
+      if(!obj)
+      {
+       return res.status(404).send("Nursery not found");
+      }
+ 
+      Nursery.findByIdAndUpdate(obj._id,req.body)
+      .then((user)=>{
+          res.status(200).json({message:"user info updated successfully"});
+      })
+      .catch(err =>{
+        console.log(err)
+          res.status(500).json({message:"internal server error"})
+      })
+
+
+
+}
+
+exports.ItemsImageuploads = async(req,res)=>{
+
+  const userId = req.rootuser._id;
+
+  const obj = await Nursery.findOne({userId});
+  const photo = req.file.filename;
+  const itemname = req.body.name;
+  const item={
+    itemname,photo
+  }
+  console.log(item);
+
+  await Nursery.findByIdAndUpdate({_id:obj._id},{ $push:{Items:{itemname,photo}}})
+  .then(
+   ()=>{
+    res.status(201).send("item added successfully");
+   }
+  )
+  .catch((err)=>{
+    console.log(err);
+    res.status(500).send("Internal server error");
+  })
+
+}
+
+
+
+exports.nurseryItems = async(req,res)=>{
+  const allPhotos = await Nursery.find();
+  res.send(allPhotos);  
+}

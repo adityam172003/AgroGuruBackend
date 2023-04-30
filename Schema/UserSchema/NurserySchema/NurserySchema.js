@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { boolean } = require("yup");
 
 
 const Geoschema = new mongoose.Schema({
@@ -52,9 +51,12 @@ const  NurserySchema=new mongoose.Schema({
     created_at    : { type: Date, required: true, default: Date.now }
      ,
     Items:[{
-        name:{
+        itemname:{
             type:String,
-             }
+             },
+        photo:{
+            type:String
+        }
         }]
     
     ,
