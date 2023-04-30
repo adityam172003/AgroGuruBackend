@@ -10,7 +10,7 @@ const {
 const nurseryRouter = express();
 
 
-nurseryRouter.post('/register',Authentication,addNursery);
+nurseryRouter.post('/register',Authentication,uploadMiddleware.single("nurseryImage"),addNursery);
 nurseryRouter.get('/getnursery',Authentication,getNursery);
 nurseryRouter.get('/remove',Authentication,removeNursery);
 nurseryRouter.patch('/nurseryup',Authentication,updataNursery);

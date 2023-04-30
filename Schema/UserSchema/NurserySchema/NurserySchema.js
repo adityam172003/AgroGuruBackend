@@ -60,6 +60,9 @@ const  NurserySchema=new mongoose.Schema({
         }]
     
     ,
+    nurseryImage:{
+        type:String
+    },
     geometry:Geoschema
 })
 

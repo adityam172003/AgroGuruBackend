@@ -6,15 +6,19 @@ const uploadMiddleware = require("../../Middleware/AdminMiddleware/MulterMiddlew
 exports.addNursery = async(req,res)=>{
 
     const userId = req.rootuser._id
-    let name     = req.body.data.name;
-    let phone    =req.body.data.phone;
-    let address  = req.body.data.address;
+    let name     = req.body.name;
+    let phone    =req.body.phone;
+    let address  = req.body.address;
     let timing   = {
-        opening:req.body.data.openTime,
-        closing:req.body.data.closeTime
-    }
+        opening:req.body.openTime,
+        closing:req.body.closeTime
+    } 
     let available = "true"
-
+    
+    let nurseryImage =  req.file.filename;
+  console.log(name);
+  console.log(nurseryImage)
+    
 
 
     
@@ -33,7 +37,7 @@ exports.addNursery = async(req,res)=>{
     }
     
 
-    const newNursery = await new Nursery({userId,name,address,phone,timing,available,geometry});
+    const newNursery = await new Nursery({userId,name,address,phone,timing,available,geometry,nurseryImage});
 
     await  newNursery.save()
     .then((nur)=>{
@@ -44,6 +48,7 @@ exports.addNursery = async(req,res)=>{
         console.log(err);
         res.status(500).send("Internal server error");
     }) 
+    
     
 }  
  
