@@ -16,8 +16,8 @@ exports.addNursery = async(req,res)=>{
     let available = "true"
     
     let nurseryImage =  req.file.filename;
-  console.log(name);
-  console.log(nurseryImage)
+  // console.log(name);
+  // console.log(nurseryImage)
     
 
 
