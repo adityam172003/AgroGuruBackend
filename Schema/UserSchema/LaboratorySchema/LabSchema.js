@@ -51,12 +51,18 @@ const  LabSchema=new mongoose.Schema({
     created_at    : { type: Date, required: true, default: Date.now }
      ,
     Services:[{
-        name:{
+        sname:{
             type:String,
+             },
+             photo:{
+                type:String
              }
         }]
     
     ,
+    laboratoryImage:{
+        type:String
+    },
     geometry:Geoschema
 })
 

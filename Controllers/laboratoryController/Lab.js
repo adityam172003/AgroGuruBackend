@@ -1,20 +1,23 @@
 
 const  Lab =require('../../Schema/UserSchema/LaboratorySchema/LabSchema');
 
+// Data will come from form tag remember it 
+
+
 
 exports.addLab = async(req,res)=>{
 
     const userId = req.rootuser._id
-    let name     = req.body.data.name;
-    let phone    =req.body.data.phone;
-    let address  = req.body.data.address;
+    let name     = req.body.name;
+    let phone    =req.body.phone;
+    let address  = req.body.address;
     let timing   = {
-        opening:req.body.data.openTime,
-        closing:req.body.data.closeTime
+        opening:req.body.openTime,
+        closing:req.body.closeTime
     }
     let available = "true"
 
-
+    let laboratoryImage =  req.file.filename;
 
     
     
@@ -32,7 +35,7 @@ exports.addLab = async(req,res)=>{
     }
     
 
-    const newNursery = await new Lab({userId,name,address,phone,timing,available,geometry});
+    const newNursery = await new Lab({userId,name,address,phone,timing,available,geometry,laboratoryImage});
 
     await  newNursery.save()
     .then((nur)=>{
@@ -155,3 +158,35 @@ exports.updataLab = async(req,res)=>{
 
 
 }
+
+
+
+
+
+exports.ItemsImageuploadsLab = async(req,res)=>{
+
+  const userId = req.rootuser._id;
+
+  const obj = await Lab.findOne({userId});
+  const photo = req.file.filename;
+  const sname = req.body.sname;
+  // const item={
+  //   itemname,photo
+  // }
+  // console.log(item);
+
+  await Lab.findByIdAndUpdate({_id:obj._id},{ $push:{Services:{sname,photo}}})
+  .then(
+   ()=>{
+    res.status(201).send("item added successfully");
+   }
+  )
+  .catch((err)=>{
+    console.log(err);
+    res.status(500).send("Internal server error");
+  })
+
+}
+
+
+
