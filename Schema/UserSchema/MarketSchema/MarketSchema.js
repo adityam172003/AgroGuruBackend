@@ -51,20 +51,24 @@ const  MarketSchema=new mongoose.Schema({
     
     created_at    : { type: Date, required: true, default: Date.now },
      
+   items:[
+   {
     item:{
         type:String,
         required:true
     },
-    Quantity:{
-        type:Number,
-        required:true
-    },
-
     price:
     {
         type:Number,
         required:true
     }
+   }
+   ],
+
+   marketImage:{
+    type:String,
+    default:'/'
+   }
      ,
     
     

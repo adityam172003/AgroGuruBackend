@@ -4,18 +4,18 @@ const Markets =require('../../Schema/UserSchema/MarketSchema/MarketSchema');
 exports.addMarket = async(req,res)=>{
 
     const userId = req.rootuser._id
-    let name     = req.body.data.name;
-    let phone    = req.body.data.phone;
-    let address  = req.body.data.address;
-    let item     = req.body.data.item;
-    let Quantity = req.body.data.Quantity
-    let price    = req.body.data.price;
+    let name     = req.body.name;
+    let phone    = req.rootuser.phone;
+    let address  = req.body.address;
+    // let item     = req.body.data.item;
+    // let Quantity = req.body.Quantity
+    // let price    = req.body.price;
 
-
-    
-    
+  console.log(req.body)
+    const marketImage = req.file.filename;
+    console.log(marketImage)
      const geometry={"type":"point","coordinates":[parseFloat(req.query.lng),parseFloat(req.query.ltd)]}
-    if(!name||!address||!phone||!item||!geometry)
+    if(!name||!address||!phone||!geometry)
     {
       return  res.status(400).send("Invalid Information");
     }
@@ -28,10 +28,10 @@ exports.addMarket = async(req,res)=>{
     }
     
 
-    const newMarkets = await new Markets({userId,name,address,phone,item,Quantity,price,geometry});
+    const newMarkets = await new Markets({userId,name,address,phone,items:[],geometry,marketImage});
 
     await  newMarkets.save()
-    .then((nur)=>{
+    .then((nur)=>{ 
 
         res.status(200).send("Market added successfully");
     })       
@@ -42,6 +42,26 @@ exports.addMarket = async(req,res)=>{
     
 }  
  
+exports.addItems = async (req,res)=>{
+
+ 
+  const userId = req.rootuser._id
+  const items = req.body;
+  console.log(items);
+ 
+  if(!userId)
+  {
+    return res.status(404).send("user not found");
+  }
+  Markets.findOneAndUpdate({userId},{$push:{items}})
+  .then((resp)=>{
+    res.status(200).send("Item added successfully")
+  }) 
+  .catch((err)=>{
+    res.status(500).send("user not found please add your market first");
+  })   
+
+}
 
 exports.getMarket = async (req,res)=>{
 

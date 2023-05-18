@@ -126,3 +126,22 @@ exports.userLogout = async (req,res)=>{
 exports.getUser = async(req,res)=>{
     res.status(200).send(req.rootuser);
 }
+
+
+
+exports.adddp = async (req,res)=>{
+    const userId = req.rootuser._id;
+    const profilepic =req.file.filename;
+
+
+    User.findOneAndUpdate({_id:userId},{$set:{profilepic}})
+    .then((resp)=>{
+        res.status(200).send("profile picture uploaded successfully");
+
+    })
+    .catch((e)=>{
+        res.status(500).send("internal server error");
+    })
+
+
+}

@@ -11,7 +11,7 @@ app.use(cookieparser())
 
 const dotenv=require("dotenv");
 dotenv.config();
-const Port = process.env.PORT;
+const Port = process.env.PORT||8080;
 
 
 // importing routes

@@ -26,6 +26,11 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    profilpic:
+    {
+        type:String,
+        default:'/'
+    },
     created_at    : { type: Date, required: true, default: Date.now }
      ,
     tokens:[{
