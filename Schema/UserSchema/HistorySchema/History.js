@@ -10,32 +10,61 @@ const historySchema = new mongoose.Schema({
         required: true
     }   ,
 
-    created_at:{type: Date, required: true, default: Date.now},
+   
 
-    cropPredicted:{
-            type:String,
+    cropPredicted:[{
+            crop:{type:String},
+            values:{},
+            created_at:{type: Date, required: true, default: Date.now},
 
-    },
-    MarketVisited:{
+    }],
+    MarketVisited:[
+       {
         marketId:{
             type:String
         }
-    },
-    NurseryVisited:{
+        ,
+        marketName:{
+            type:String
+        },
+        created_at:{type: Date, required: true, default: Date.now}
+
+       }
+    ],
+    NurseryVisited:[
+       {
         nurseryId:{
             type:String
-        }
-    },
+        },
+        nurseryName:{
+            type :String
+        },
+        created_at:{type: Date, required: true, default: Date.now}
 
-    LaboratoryVisited:{
-        laboratoryId:
+       }
+    ],
+
+    LaboratoryVisited:[
+       { laboratoryId:
         {
             type:String
+        },
+        labName:{
+            type :String
         }
+        ,
+        created_at:{type: Date, required: true, default: Date.now}
+
     }
+    ]
 
     
-    
-
-
 })
+
+
+
+
+
+
+const History=mongoose.model('HISTORY',historySchema);
+module.exports=History;

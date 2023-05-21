@@ -1,7 +1,7 @@
 
 const User =require('../../Schema/UserSchema/CommonSchema/Userschema');
 
-
+const History = require('../../Schema/UserSchema/HistorySchema/History');
 const bcrypt = require('bcrypt')
 
 const jwt      = require('jsonwebtoken')
@@ -36,10 +36,20 @@ exports.userResister= async (req,res) =>{
      await newUser.save()
      .then(async(use)=>{
    
-
+            const userId = use._id;
  
+      
+     const nH = await new History({userId,cropPredicted:[],MarketVisited:[],NurseryVisited:[],LaboratoryVisited:[]});
+      nH.save()
+      .then(()=>{
+       console.log("history is created"); 
+     })
+      .catch((er)=>{
+       console.log(er);
+     })
+      
 
- 
+        
        res.status(200).send("user rigistered successfully");
      })
      .catch((err)=>{
@@ -128,13 +138,13 @@ exports.getUser = async(req,res)=>{
 }
 
 
-
+// done
 exports.adddp = async (req,res)=>{
     const userId = req.rootuser._id;
-    const profilepic =req.file.filename;
+    const profilpic =req.file.filename;
 
 
-    User.findOneAndUpdate({_id:userId},{$set:{profilepic}})
+    User.findOneAndUpdate({_id:userId},{$set:{profilpic}})
     .then((resp)=>{
         res.status(200).send("profile picture uploaded successfully");
 
@@ -144,4 +154,21 @@ exports.adddp = async (req,res)=>{
     })
 
 
+}
+
+//done
+exports.userProfileUpdate = async (req,res)=>{
+    const userId = req.rootuser._id;
+
+    const {name,email,phone}= req.body;
+    await User.findOneAndUpdate({_id:userId},{$set:{name,email,phone,created_at:new Date()}})
+    .then((user)=>{
+        console.log(user);
+        res.status(200).send(user);
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.status(500).send("internal server error");
+        
+    })
 }

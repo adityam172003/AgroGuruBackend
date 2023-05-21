@@ -190,3 +190,35 @@ exports.ItemsImageuploadsLab = async(req,res)=>{
 
 
 
+
+exports.getlabbyId = async(req,res)=>{
+  const LabId = req.query.id;
+
+  Lab.findOne({_id:LabId})
+  .then((obj)=>{
+    res.status(200).send(obj);
+
+  })
+  .catch((err)=>{
+    console.log(err);
+    res.status(404).send("Not found");
+
+  })
+
+}
+
+exports.userLab = async(req,res)=>{
+  userId = req.rootuser._id;
+  console.log('user lab calles')
+  const obj = await Lab.findOne({userId})
+  if(obj)
+  {
+    res.status(200).send(obj);
+  }
+  else
+  {
+    res.status(404).send("No Lab");
+  }
+}
+
+

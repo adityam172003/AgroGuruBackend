@@ -149,6 +149,9 @@ exports.removeMarket = async (req,res)=>{
 
 }
 
+
+
+
 exports.updataMarket = async(req,res)=>{
 
       const userId = req.rootuser._id;
@@ -174,4 +177,34 @@ exports.updataMarket = async(req,res)=>{
 
 }
 
-// create function for addding image and items 
+
+exports.getmarketbyId = async(req,res)=>{
+  const marketId = req.query.id;
+
+  Markets.findOne({_id:marketId})
+  .then((obj)=>{
+    res.status(200).send(obj);
+
+  })
+  .catch((err)=>{
+    console.log(err);
+    res.status(404).send("Not found makret");
+
+  })
+
+} 
+
+
+exports.userMarket = async(req,res)=>{
+  userId = req.rootuser._id;
+
+  const obj = await Markets.findOne({userId})
+  if(obj)
+  {
+    res.status(200).send(obj);
+  }
+  else
+  {
+    res.status(404).send("No market");
+  }
+}

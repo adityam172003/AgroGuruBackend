@@ -119,7 +119,7 @@ exports.getNursery = async (req,res)=>{
 }            
            
 
-
+02
 exports.removeNursery = async (req,res)=>{
 
   const userId = req.rootuser._id;
@@ -193,4 +193,37 @@ exports.ItemsImageuploads = async(req,res)=>{
 exports.nurseryItems = async(req,res)=>{
   const allPhotos = await Nursery.find();
   res.send(allPhotos);  
+}
+
+
+
+exports.getnurserybyId = async(req,res)=>{
+  const nurseryId = req.query.id;
+
+  Nursery.findOne({_id:nurseryId})
+  .then((obj)=>{
+    res.status(200).send(obj);
+
+  })
+  .catch((err)=>{
+    console.log(err);
+    res.status(404).send("Not found");
+
+  })
+
+}
+
+
+exports.userNursery = async(req,res)=>{
+  userId = req.rootuser._id;
+  console.log("call");
+  const obj = await Nursery.findOne({userId})
+  if(obj)
+  {
+    res.status(200).send(obj);
+  }
+  else
+  {
+    res.status(404).send("No nursery");
+  }
 }
