@@ -156,7 +156,7 @@ exports.updataMarket = async(req,res)=>{
 
       const userId = req.rootuser._id;
 
-
+      console.log(req.body);
       const obj = await Markets.findOne({userId});
 
       if(!obj)

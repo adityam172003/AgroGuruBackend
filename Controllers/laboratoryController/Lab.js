@@ -8,6 +8,8 @@ const  Lab =require('../../Schema/UserSchema/LaboratorySchema/LabSchema');
 exports.addLab = async(req,res)=>{
 
     const userId = req.rootuser._id
+
+    console.log(req.body);
     let name     = req.body.name;
     let phone    =req.body.phone;
     let address  = req.body.address;

@@ -141,6 +141,8 @@ exports.getUser = async(req,res)=>{
 // done
 exports.adddp = async (req,res)=>{
     const userId = req.rootuser._id;
+    console.log(req.body); 
+
     const profilpic =req.file.filename;
 
 
@@ -149,7 +151,7 @@ exports.adddp = async (req,res)=>{
         res.status(200).send("profile picture uploaded successfully");
 
     })
-    .catch((e)=>{
+    .catch((e)=>{ 
         res.status(500).send("internal server error");
     })
 

@@ -166,7 +166,7 @@ exports.updataNursery = async(req,res)=>{
 exports.ItemsImageuploads = async(req,res)=>{
 
   const userId = req.rootuser._id;
-
+  console.log(req.body);
   const obj = await Nursery.findOne({userId});
   const photo = req.file.filename;
   const itemname = req.body.name;
@@ -179,7 +179,7 @@ exports.ItemsImageuploads = async(req,res)=>{
   .then(
    ()=>{
     res.status(201).send("item added successfully");
-   }
+   } 
   )
   .catch((err)=>{
     console.log(err);

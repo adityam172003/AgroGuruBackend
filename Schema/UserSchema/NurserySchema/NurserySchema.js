@@ -30,6 +30,7 @@ const  NurserySchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    
   
     timing:
     {   

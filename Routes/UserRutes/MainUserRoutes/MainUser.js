@@ -24,7 +24,7 @@ userRouter.post('/dp',Authentication,uploadMiddleware.single("profilepic"),adddp
 
 
 userRouter.get('/logout',Authentication,userLogout);
-
+ 
 userRouter.get('/getuser',Authentication,getUser);
 
 userRouter.post('/crophistory',Authentication,cropPredictInfo);
